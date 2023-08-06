@@ -18,16 +18,17 @@ const toggleControls = () => {
 const update = () => {
     var timeLeft = endTime - Date.now()
     if (timeLeft < 0) {
-        setText('--:--')
+        setText("Time Up", "red")
     } else {
         var minutes = Math.floor(timeLeft / 60e3)
-        var seconds = Math.floor(timeLeft / 1e3) % 60
-        setText(`${minutes}:${seconds.toString(10).padStart(2, '0')}`)
+        var seconds = Math.floor((timeLeft % 60e3) / 1e3)
+        setText(minutes + ':' + (seconds < 10 ? '0' : '') + seconds, "white")
     }
 }
 
-const setText = (text) => {
+const setText = (text, color) => {
     document.getElementById('timer').textContent = text
+    document.getElementById('timer').style.color = color
 }
 
 setInterval(update, 200)
